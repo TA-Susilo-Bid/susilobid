@@ -34,7 +34,7 @@ CREATE TABLE `bid` (
   KEY `fk_bidder_id_idx` (`bidder_id`),
   CONSTRAINT `fk_bidder_id` FOREIGN KEY (`bidder_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,6 @@ CREATE TABLE `bid` (
 
 LOCK TABLES `bid` WRITE;
 /*!40000 ALTER TABLE `bid` DISABLE KEYS */;
-INSERT INTO `bid` VALUES (90,1,2,48000000,1,'2020-06-14 22:11:34'),(91,1,45,52000000,1,'2020-06-14 22:14:53'),(92,1,2,60000000,2,'2020-06-14 22:16:49'),(93,4,33,3000000,1,'2020-06-15 15:53:45'),(95,4,45,5000000,1,'2020-06-17 13:24:37'),(97,1,2,70000000,3,'2020-06-17 18:43:27'),(98,9,2,150000,1,'2020-06-18 01:56:09');
 /*!40000 ALTER TABLE `bid` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +63,7 @@ CREATE TABLE `bid_result` (
   PRIMARY KEY (`id`),
   KEY `fk_bid_id_idx` (`bid_id`),
   CONSTRAINT `fk_bid_id` FOREIGN KEY (`bid_id`) REFERENCES `bid` (`bid_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +72,6 @@ CREATE TABLE `bid_result` (
 
 LOCK TABLES `bid_result` WRITE;
 /*!40000 ALTER TABLE `bid_result` DISABLE KEYS */;
-INSERT INTO `bid_result` VALUES (7,97,7,70000000,2,32);
 /*!40000 ALTER TABLE `bid_result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +116,7 @@ CREATE TABLE `cart` (
   KEY `fk_bid_result_id_idx` (`bid_result_id`),
   CONSTRAINT `fk_bid_result_id` FOREIGN KEY (`bid_result_id`) REFERENCES `bid_result` (`id`),
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +169,7 @@ CREATE TABLE `invoice` (
   PRIMARY KEY (`id`),
   KEY `fk_trx_id_idx` (`trx_id`),
   CONSTRAINT `fk_trx_id` FOREIGN KEY (`trx_id`) REFERENCES `transaction` (`trx_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +178,6 @@ CREATE TABLE `invoice` (
 
 LOCK TABLES `invoice` WRITE;
 /*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
-INSERT INTO `invoice` VALUES (1,'INV-4171592500440135',70000000,'2020-06-19 00:14:00',30,'/invoice/INV-4171592500440135.pdf');
 /*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +208,7 @@ CREATE TABLE `product` (
   CONSTRAINT `fk_bid_status` FOREIGN KEY (`bid_status`) REFERENCES `bid_status` (`status_id`),
   CONSTRAINT `fk_product_category` FOREIGN KEY (`product_category`) REFERENCES `category` (`id`),
   CONSTRAINT `fk_seller_id` FOREIGN KEY (`seller_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +217,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,32,3,'Toyota Avanza','Kejari Kotim Lot 20 : 1 (satu) Unit Mobil Toyota Tipe Avanza 1300 G tanpa No. Polisi, No. Rangka dan Mesin Rusak (tanpa dokumen).',45000000,'2020-04-28 13:03:58','2020-06-19 00:14:00','Confirm','-','SSB-01',2),(2,34,3,'Sedan Timor','LOT17. (Pemkot Parepare) 1 (satu) unit sedan, merk/type Timor, Nopol DD 89 K (DD 555 K dahulu), tahun 1998, warna brave blue',30000000,'2020-05-01 07:25:09','2020-07-05 00:00:00','Reject','Mark as Fraud','SSB-02',NULL),(3,46,3,'Toyota Avanza','KPP KEBAYORAN BARU DUA-1 (satu) unit Mobil Avanza 1.3 G, Tahun 2011 No. Pol. BM 1478 JJ',65000000,'2020-05-07 00:00:00','2020-09-01 00:00:00','Pending','-','SSB-03',1),(4,42,1,'Iphone 6s','Iphone 6/16gb ,Warna Grey Original New Garansi Platinum 1thn',2450000,'2020-05-15 02:04:49','2020-08-02 14:35:00','Confirm','-','SSB-04',1),(8,50,2,'Tanah & Bangunan','KSP SMS Lot 2: Tanah dan Bangunan Lt 119 terletak di Kota Tebing Tinggi',550000000,'2020-06-16 03:41:08','2020-12-12 00:00:00','Confirm','-','SSB-05',1),(9,49,1,'Handphone Samsung','1 buah Handphone merek Samsung warna hitam dengan no.sim card 085259885900 (Kejari Jeneponto)',120000,'2020-06-17 00:30:19','2020-07-30 00:00:00','Confirm','-','SSB-06',1),(10,37,2,'Bangunan','BPR Universal 3: bid tnh & bngn SHM 8964 Lt. 66 m2, di Jl. Tanjung Raya II, Kel. Saigon, Kec. Ptk Timur, Kota Pontianak',165000000,'2020-06-17 02:30:03','2020-11-01 00:00:00','Confirm','-','SSB-07',1);
+INSERT INTO `product` VALUES (16,34,1,'Stik Golf','Stik Golf Merk PRGR Warna Cokelat Hitam Type PRGR M-40 kondisi baru',5000000,'2020-06-24 01:13:26','2020-07-25 23:00:00','Confirm','-','/product/PRD1592936006259.jpg',1),(17,34,3,'Mobil Toyota','1 Unit Roda 4 Merk Toyota Standar/Pick-Up,KB 8320 P,Th.2005,NoKa:MHF31KF6050044483,Nosin:7K-0809963,hanya BPKB.Rusak',24929000,'2020-06-24 01:58:33','2020-08-28 09:00:00','Pending','-','/product/PRD1592938713805.jpg',NULL),(18,34,2,'Tanah','Sebidang tanah seluas 456 m2 berikut bangunan toko diatasnya, di Desa Seuneubok Benteng Kecamatan Banda Alam',400000000,'2020-06-24 02:11:06','2020-06-24 02:14:00','Confirm','-','/product/PRD1592939466225.png',2);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +268,7 @@ CREATE TABLE `transaction` (
   KEY `fk_seller_idx` (`seller_id`),
   CONSTRAINT `fk_buyer` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `fk_seller` FOREIGN KEY (`seller_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +277,6 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-INSERT INTO `transaction` VALUES (22,2,NULL,'2020-06-18 02:20:57',NULL,5000000,NULL,'/slip/PYM1592421657130.jpg','Confirm',NULL),(23,45,NULL,'2020-06-18 02:34:08',NULL,10000000,NULL,'/slip/PYM1592422448847.jpg','Pending',NULL),(24,44,NULL,'2020-06-18 02:54:48',NULL,50000000,NULL,'/slip/PYM1592423688958.jpg','Pending',NULL),(25,3,NULL,'2020-06-18 02:56:16',NULL,7000000,NULL,'/slip/PYM1592423776323.jpg','Pending',NULL),(30,2,32,'2020-06-19 00:14:00',66500000,3500000,7,NULL,'Close',NULL);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +314,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,1,'admin','arioamri@gmail.com','admin123',NULL,NULL,0,'Active'),(2,2,1,'arioamri','arioamri@yahoo.co.id','ca2c8a0b0baccd44a7078af6ef2fe3aa24a2a3e8769031957832149bee3c522c','Banjar Wijaya',55751409,5000000,'Active'),(3,2,0,'buyer1','buyr@yahoo.com','tes','tes',45445,0,'Banned'),(4,2,0,'buyer2','buyer2@gmail.com','tes','asasa',454454,0,'Banned'),(32,3,0,'seller1','seller@hotmail.com','tes','ffggf',4334,0,'Active'),(33,2,0,'buyer3','buyer3@yahoo.com','tes','ddggg',34343,0,'Active'),(34,3,0,'seller2','seller2i@yahoo.co.id','tes','ssdrerer',343567676,0,'Active'),(35,2,0,'buyer4','buyer4@hotmail.com','tes','vbfdgdgf',983232,0,'Active'),(36,2,0,'buyer5','buyer5@yahoo.com','tes','dfdfdd',434554,0,'Active'),(37,3,0,'seller3','seller3@yahoo.com','tes','fgfgfg',323,0,'Active'),(38,3,0,'seller4','seller4@gmail.com','tes','dfdfw',466565,0,'Banned'),(39,2,0,'buyer6','buyer6@hotmail.com','tes','ffdssdss',6657567,0,'Banned'),(40,2,0,'buyer7','buyer7@gmail.com','tes','gffgffg',656656,0,'Active'),(41,3,0,'seller5','seller5@yahoo.com','tes','fdfdfd',671234,0,'Banned'),(42,3,0,'seller6','seller6@gmail.com','tes','dfdf',340987,0,'Active'),(43,2,0,'buyer8','buyr8@hotmail.com','tes','fdfdd',67676,0,'Banned'),(44,2,0,'buyer9','buyer9@gmail.com','tes','aaqas',7787,0,'Active'),(45,2,0,'buyer10','buyer10@yahoo.com','tes','dfdfddf',686868,0,'Active'),(46,3,0,'seller7','seller7@yahoo.co.id','tes','fggd',721233,0,'Active'),(47,2,0,'buyer11','buyer11@gmail.com','tes','dffdfd',56565,0,'Banned'),(48,2,0,'buyer12','buyer12@gmail.com','tes','aqko',126788,0,'Active'),(49,3,0,'seller8','seller8@gmail.com','tes','dfsfsaf',1211,0,'Active'),(50,3,0,'seller9','seller9@hotmail.com','tes','dsss',1221,0,'Active'),(51,2,0,'buyer13','buyer13@gmail.com','tes','dfdfdf',34343,0,'Active'),(52,2,0,'buyer14','buyer14@yahoo.com','tes','fgfgf',524242,0,'Active'),(53,2,0,'buyer15','buyer15@gmail.com','tes','dfsfsfsf',7676767,0,'Active'),(54,3,0,'seller10','seller10@yahoo.com','tes','ahjju',124222,0,'Active'),(55,2,0,'buyer16','buyer16@gmail.com','tes','dfdfdd',11332,0,'Active'),(56,2,0,'buyer17','buyer17@gmail.com','tes','fgdgdd',2323232,0,'Banned'),(57,3,0,'seller11','seller11@yahoo.com','tes','dfdfd',454545,0,'Active'),(58,3,0,'seller12','seller12@yahoo.com','tes','dffdfd',345353,0,'Banned'),(59,2,0,'buyer18','buyer18@gmail.com','tes','dfggdg',454544,0,'Active');
+INSERT INTO `users` VALUES (1,1,1,'admin','arioamri@gmail.com','admin123',NULL,NULL,0,'Active'),(2,2,1,'arioamri','arioamri@yahoo.co.id','afb035d340469289c426ac6cf9bd9ee86e4df2e541a7a1073c12cbc6a1ba8897','Cipondoh',5541409,6000000,'Active'),(3,2,0,'buyer1','buyr@yahoo.com','tes','tes',45445,0,'Banned'),(4,2,0,'buyer2','buyer2@gmail.com','tes','asasa',454454,0,'Banned'),(32,3,0,'seller1','seller@hotmail.com','tes','ffggf',4334,217562000,'Active'),(33,2,0,'buyer3','buyer3@yahoo.com','tes','ddggg',34343,30000000,'Active'),(34,3,0,'seller2','seller2i@yahoo.co.id','tes','ssdrerer',343567676,0,'Active'),(35,2,0,'buyer4','buyer4@hotmail.com','tes','vbfdgdgf',983232,20000,'Active'),(36,2,0,'buyer5','buyer5@yahoo.com','tes','dfdfdd',434554,0,'Banned'),(37,3,0,'seller3','seller3@yahoo.com','tes','fgfgfg',323,0,'Active'),(38,3,0,'seller4','seller4@gmail.com','tes','dfdfw',466565,0,'Banned'),(39,2,0,'buyer6','buyer6@hotmail.com','tes','ffdssdss',6657567,0,'Active'),(40,2,0,'buyer7','buyer7@gmail.com','tes','gffgffg',656656,0,'Active'),(41,3,0,'seller5','seller5@yahoo.com','tes','fdfdfd',671234,0,'Banned'),(42,3,0,'seller6','seller6@gmail.com','tes','dfdf',340987,0,'Active'),(43,2,0,'buyer8','buyr8@hotmail.com','tes','fdfdd',67676,0,'Banned'),(44,2,0,'buyer9','buyer9@gmail.com','tes','aaqas',7787,9500000,'Active'),(45,2,0,'buyer10','buyer10@yahoo.com','tes','dfdfddf',686868,259600000,'Active'),(46,3,0,'seller7','seller7@yahoo.co.id','tes','fggd',721233,0,'Active'),(47,2,0,'buyer11','buyer11@gmail.com','tes','dffdfd',56565,0,'Banned'),(48,2,0,'buyer12','buyer12@gmail.com','tes','aqko',126788,0,'Active'),(49,3,0,'seller8','seller8@gmail.com','tes','dfsfsaf',1211,0,'Active'),(50,3,0,'seller9','seller9@hotmail.com','tes','dsss',1221,0,'Active'),(51,2,0,'buyer13','buyer13@gmail.com','tes','dfdfdf',34343,0,'Active'),(52,2,0,'buyer14','buyer14@yahoo.com','tes','fgfgf',524242,0,'Active'),(53,2,0,'buyer15','buyer15@gmail.com','tes','dfsfsfsf',7676767,0,'Active'),(54,3,0,'seller10','seller10@yahoo.com','tes','ahjju',124222,0,'Active'),(55,2,0,'buyer16','buyer16@gmail.com','tes','dfdfdd',11332,0,'Active'),(56,2,0,'buyer17','buyer17@gmail.com','tes','fgdgdd',2323232,0,'Banned'),(57,3,0,'seller11','seller11@yahoo.com','tes','dfdfd',454545,0,'Active'),(58,3,0,'seller12','seller12@yahoo.com','tes','dffdfd',345353,0,'Banned'),(59,2,0,'buyer18','buyer18@gmail.com','tes','dfggdg',454544,0,'Active');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-19 12:47:16
+-- Dump completed on 2020-06-24  2:41:43
