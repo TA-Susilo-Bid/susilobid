@@ -11,6 +11,7 @@ const reportRouter = require('./reportRouter');
 const profileRouter = require('./profileRouter');
 const bidRouter = require('./bidRouter');
 const cartRouter = require('./cartRouter');
+const postProductRouter = require('./postProductRouter')
 
 module.exports = {
     authRouter,
@@ -26,4 +27,5 @@ module.exports = {
     profileRouter,
     bidRouter,
     cartRouter,
+    postProductRouter
 };

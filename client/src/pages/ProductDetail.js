@@ -8,12 +8,13 @@ import { FetchDataByProductId } from '../redux/action';
 // moment.js
 import Moment from 'moment';
 
+// API
+import { API_URL } from '../support/API_URL';
+
 // style
 import { Button } from 'semantic-ui-react';
 import { Container, Row, Col } from "react-bootstrap";
 
-// sample image
-import SampleImage from '../asset/SSB-1.jpeg';
 
 const ProductDetail = props => {
 
@@ -26,7 +27,7 @@ const ProductDetail = props => {
   }, [dispatch, productId]);
   
   const data = useSelector(({ product }) => product.productById);
-  const {product_name, product_id, starting_price, seller, product_desc, category, due_date} = data;
+  const {product_name, product_id, starting_price, seller, product_desc, category, due_date, image_path} = data;
   
   return (
     <div className="container mt-4 p-3">
@@ -35,7 +36,7 @@ const ProductDetail = props => {
           <img
             className="img-thumbnail"
             alt={product_name}
-            src={SampleImage}
+            src={API_URL + image_path}
             style={{ height: "33.5rem" }}
           />
         </div>

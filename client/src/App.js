@@ -16,7 +16,9 @@ import {
   BiddingPage,
   WalletPage,
   EditProfile,
-  Cart
+  Cart,
+  AddProduct,
+  Product
 } from './pages';
 import Header from './components/Header';
 
@@ -58,6 +60,8 @@ const App = () => {
           <Route path='/bidding-page' component={BiddingPage} />
           <Route path='/edit-profile' component={EditProfile} />
           <Route path='/cart' component={Cart} />
+          <Route path='/add-product' component={AddProduct} />
+          <Route path='/products' component={Product} />
             {
               role === 1
               ?

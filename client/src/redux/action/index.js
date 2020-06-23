@@ -12,3 +12,4 @@ export * from './ReportAction';
 export * from './ProfileAction';
 export * from './ActiveAuctionsAction';
 export * from './CartAction';
+export * from './PostProductAction';

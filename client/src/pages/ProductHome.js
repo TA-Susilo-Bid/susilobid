@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 // API
 // import Axios from 'axios';
-// import { API_URL } from '../support/API_URL';
+import { API_URL } from '../support/API_URL';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,7 +46,7 @@ const ProductHome = () => {
         <div className="col-3 mt-1" key={idx}>
           <Link to={`/product-detail?product_id=${val.product_id}`} style={{ color: "black" }}>
             <Card className="card">
-              <Card.Img variant="top" src={SampleImage} style={{ height: "12rem" }} />
+              <Card.Img variant="top" src={API_URL + val.image_path} style={{ height: "12rem" }} />
               <Card.Body>
                 <Card.Text>
                   {`${val.product_desc ? val.product_desc.substring(0, MAX_LENGTH).toUpperCase(): null}...`}

@@ -13,6 +13,7 @@ import { reportReducer } from './ReportReducer';
 import { ProfileReducer } from './ProfileReducer';
 import { ActiveAuctionsReducer } from './ActiveAuctionsReducer';
 import { CartReducer } from './CartReducer';
+import { postProductReducer } from './PostProductReducer';
 
 export default combineReducers({
     auth : authReducer,
@@ -29,4 +30,5 @@ export default combineReducers({
     profile : ProfileReducer,
     activeBid : ActiveAuctionsReducer,
     cart: CartReducer,
+    postProduct : postProductReducer
 });

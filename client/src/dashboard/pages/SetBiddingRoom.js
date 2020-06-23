@@ -13,11 +13,11 @@ import Loader from 'react-loader-spinner';
 import SubmissionPagination from "../../components/SubmissionPagination";
 import FilterSubmission from "../../components/FilterSubmission";
 
+// API
+import { API_URL } from '../../support/API_URL';
+
 //moment.js
 import Moment from "moment";
-
-// sample image
-import sampleImage from "../../asset/SSB-1.jpeg";
 
 const SetBiddingRoom = () => {
 
@@ -77,7 +77,7 @@ const SetBiddingRoom = () => {
       dispatch(GetSubmissionAuct(submissionPerPage, offset, render));
     };
   };
-
+  console.log(fetchSubmission);
   const renderModal = () => {
     let detail = fetchSubmission.find(val => val.product_id === selectedId && val.product_name === selectedName);
     let detailArray = [];
@@ -98,7 +98,7 @@ const SetBiddingRoom = () => {
                       <img
                         className="img-thumbnail"
                         alt={val.product_name}
-                        src={sampleImage}
+                        src={API_URL + val.image_path}
                         style={{ height: "25rem" }}
                       />
                     </div>
@@ -212,7 +212,7 @@ const SetBiddingRoom = () => {
           <td>Rp {val.starting_price.toLocaleString()}</td>
           <td>
             <img
-              src={sampleImage}
+              src={API_URL + val.image_path}
               alt={val.image_path}
               width="120rem"
               height="90rem"

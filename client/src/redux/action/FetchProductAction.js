@@ -18,7 +18,10 @@ import {
   FETCH_DATA_SUCCESS,
   FETCH_DATA_FAILED,
   FETCH_DATA_CLOSE,
-  FETCH_DATA_CLOSE_CTG
+  FETCH_DATA_CLOSE_CTG,
+  FETCH_ACTIVE_PRODUCT_PAGE,
+  FETCH_PENDING_PRODUCT_PAGE,
+  FETCH_FINISH_PRODUCT_PAGE
 } from '../Types';
 
 export const FetchProduct = (productPerPage, offset, orderBy) => {
@@ -31,6 +34,81 @@ export const FetchProduct = (productPerPage, offset, orderBy) => {
       // console.log(res.data.data)
       dispatch({
         type: FETCH_PRODUCT_PAGE,
+        payload: res.data.data,
+        count: res.data.count
+      });
+      dispatch({
+        type: FETCH_DATA_SUCCESS
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_DATA_FAILED,
+        payload: err
+      });
+    };
+  };
+};
+
+export const FetchProductActive = (productPerPage, offset, sellerId) => {
+  return async dispatch => {
+    try {
+      dispatch({
+        type: FETCH_DATA_START
+      });
+      let res = await Axios.get(`${API_URL}/product/product-active/${productPerPage}/${offset}/${sellerId}`);
+      console.log(res.data.data)
+      dispatch({
+        type: FETCH_ACTIVE_PRODUCT_PAGE,
+        payload: res.data.data,
+        count: res.data.count
+      });
+      dispatch({
+        type: FETCH_DATA_SUCCESS
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_DATA_FAILED,
+        payload: err
+      });
+    };
+  };
+};
+
+export const FetchProductPending = (productPerPage, offset, sellerId) => {
+  return async dispatch => {
+    try {
+      dispatch({
+        type: FETCH_DATA_START
+      });
+      let res = await Axios.get(`${API_URL}/product/product-pending/${productPerPage}/${offset}/${sellerId}`);
+      console.log(res.data.data)
+      dispatch({
+        type: FETCH_PENDING_PRODUCT_PAGE,
+        payload: res.data.data,
+        count: res.data.count
+      });
+      dispatch({
+        type: FETCH_DATA_SUCCESS
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_DATA_FAILED,
+        payload: err
+      });
+    };
+  };
+};
+
+export const FetchProductFinish = (productPerPage, offset, sellerId) => {
+  return async dispatch => {
+    try {
+      dispatch({
+        type: FETCH_DATA_START
+      });
+      let res = await Axios.get(`${API_URL}/product/product-finish/${productPerPage}/${offset}/${sellerId}`);
+      console.log(res.data.data)
+      dispatch({
+        type: FETCH_FINISH_PRODUCT_PAGE,
         payload: res.data.data,
         count: res.data.count
       });

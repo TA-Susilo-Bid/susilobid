@@ -8,6 +8,8 @@ import BiddingPage from './BiddingPage';
 import WalletPage from './WalletPage';
 import EditProfile from './EditProfile';
 import Cart from './Cart';
+import AddProduct from './AddProduct';
+import Product from './ProductSeller';
 
 export {
     Home,
@@ -20,4 +22,6 @@ export {
     WalletPage,
     EditProfile,
     Cart,
+    AddProduct,
+    Product
 };

@@ -38,9 +38,6 @@ import Moment from "moment";
 // react-date-countdown-timer
 import DateCountdown from "react-date-countdown-timer";
 
-// sample image
-import SampleImage from "../asset/SSB-1.jpeg";
-
 const BiddingPage = (props) => {
   let productId = props.location.search.split("=")[1];
 
@@ -56,6 +53,7 @@ const BiddingPage = (props) => {
       startPrice: product.productById.starting_price,
       seller: product.productById.seller,
       productDesc: product.productById.product_desc,
+      image: product.productById.image_path,
       category: product.productById.category,
       dueDate: product.productById.due_date,
       serverTime: serverTime.time,
@@ -73,7 +71,7 @@ const BiddingPage = (props) => {
     productDesc,
     category,
     dueDate,
-    serverTime,
+    image,
     loadingTime,
     userId,
   } = gState;
@@ -401,7 +399,7 @@ const BiddingPage = (props) => {
                   <img
                     className="img-thumbnail"
                     alt={productName}
-                    src={SampleImage}
+                    src={API_URL + image}
                   />
                 </div>
                 <p className="h6 mt-2">Product Description</p>

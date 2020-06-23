@@ -20,7 +20,8 @@ module.exports = {
             c.category as category,
             p.due_date,
             p.status,
-            p.notes
+            p.notes,
+            p.image_path
         FROM product p
         JOIN users u ON p.seller_id = u.user_id
         JOIN category c ON p.product_category = c.id

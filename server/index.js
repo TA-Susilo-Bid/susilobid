@@ -96,6 +96,7 @@ const {
   profileRouter,
   bidRouter,
   cartRouter,
+  postProductRouter
 } = require('./router');
 
 app.use('/users', authRouter);
@@ -110,5 +111,6 @@ app.use('/report', reportRouter);
 app.use('/profile', profileRouter);
 app.use('/bid', bidRouter);
 app.use('/cart', cartRouter);
+app.use('/seller',postProductRouter);
 
 http.listen(port, () => console.log(`API active at port ${port}`));

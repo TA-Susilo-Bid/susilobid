@@ -57,44 +57,49 @@ module.exports = {
       ORDER BY b.time DESC
       LIMIT ${limit} OFFSET ${offset}
     `;
-    let updateWallet = `UPDATE users SET wallet = (wallet - ${offer}) WHERE user_id = ${bidder}`;
+
     let walletSql = `SELECT wallet FROM users WHERE user_id = ${bidder}`;
     const user = userJoin(null, null, productId);
     try {
       let count = await dba(countSql);
       let bidCount = await dba(countBid);
-
-      if (!count[0].numRows) {
-        let postSql = `INSERT INTO bid (product_id, bidder_id, offer, count, time) VALUES (${productId}, ${bidder}, ${offer}, ${bidCount[0].countBid + 1}, '${time}')`;
+      if (count[0].numRows===1) {
+        console.log(offer)
+        let postSql = `INSERT INTO bid (product_id, bidder_id, offer, count, time) VALUES (${productId}, ${bidder}, ${offer}, ${bidCount[0].countBid +1}, '${time}')`;
         await dba(postSql);
         let response = await dba(sql);
+        let updateWallet = `UPDATE users SET wallet = (wallet - ${offer}) WHERE user_id = ${bidder}`;
         await dba(updateWallet);
         let wallet = await dba(walletSql);
-
+        
         req.app.io.emit(`Wallet-${bidder}`, wallet[0].wallet);
         req.app.io.to(user.room).emit('Socket', response);
-
+        
         res.status(200).send({
           status: 'Post bidding success',
           data: response
         });
       } else {
-        let postSql = `INSERT INTO bid (product_id, bidder_id, offer, count, time) VALUES (${productId}, ${bidder}, ${offer}, ${bidCount[0].countBid + 1}, '${time}')`;
+        let postSql = `INSERT INTO bid (product_id, bidder_id, offer, count, time) VALUES (${productId}, ${bidder}, ${offer}, ${bidCount[0].countBid +1}, '${time}')`;
         await dba(postSql);
         let response = await dba(sql);
+        let prevSql = `select offer from bid where product_id=${productId} && bidder_id=${bidder} order by count desc limit 2;`;
+        let lastBid = await dba(prevSql);
+        let updateWallet = `UPDATE users SET wallet = (wallet - (${offer}-${lastBid[1].offer})) WHERE user_id = ${bidder}`;
         await dba(updateWallet);
         let wallet = await dba(walletSql);
 
         req.app.io.emit(`Wallet-${bidder}`, wallet[0].wallet);
         req.app.io.to(user.room).emit('Socket', response);
-
+        
         res.status(200).send({
           status: 'Post bidding success',
           data: response
         });
       };
-    } catch (err) {
+    } catch(err) {
+      console.log(err.message)
       res.status(500).send(err.message);
     }
-  }, 
-};
+  }
+}

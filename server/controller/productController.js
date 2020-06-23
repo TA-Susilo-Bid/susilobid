@@ -17,6 +17,74 @@ module.exports = {
       res.status(500).send(err.message);
     };
   },
+  fetchProductActive: async (req, res) => {
+    let {  limit, offset,sellerId } = req.params;
+    let countSql = `SELECT COUNT(*) AS numRows FROM product WHERE status = 'Confirm' AND bid_status = 1 AND seller_id=${sellerId} ORDER BY submission_time ASC`;
+    let sql = `SELECT c.category, p.product_name, p.starting_price, p.due_date FROM product p JOIN category c ON p.product_category=c.id WHERE status = 'Confirm' AND bid_status = 1 AND seller_id=${sellerId} ORDER BY submission_time ASC LIMIT ${limit} OFFSET ${offset}`;
+    try {
+      let response = await dba(sql);
+      // console.log(response)
+      let count = await dba(countSql);
+      res.status(200).send({
+        data: response,
+        count: count[0].numRows
+      });
+    } catch(err) {
+      // console.log(err)
+      res.status(500).send(err.message);
+    };
+  },
+  fetchProductPending: async (req, res) => {
+    let {  limit, offset,sellerId } = req.params;
+    let countSql = `SELECT COUNT(*) AS numRows FROM product WHERE status = 'Pending' AND bid_status = 1 AND seller_id=${sellerId} ORDER BY submission_time ASC`;
+    let sql = `SELECT c.category, p.product_name, p.starting_price, p.due_date FROM product p JOIN category c ON p.product_category=c.id WHERE status = 'Pending' AND seller_id=${sellerId} ORDER BY submission_time ASC LIMIT ${limit} OFFSET ${offset}`;
+    try {
+      let response = await dba(sql);
+      // console.log(response)
+      let count = await dba(countSql);
+      res.status(200).send({
+        data: response,
+        count: count[0].numRows
+      });
+    } catch(err) {
+      // console.log(err)
+      res.status(500).send(err.message);
+    };
+  },
+  fetchProductFinish: async (req, res) => {
+    let {  limit, offset,sellerId } = req.params;
+    let countSql = `SELECT COUNT(*) AS numRows FROM product WHERE status = 'Confirm' AND bid_status = 2 AND seller_id=${sellerId} ORDER BY submission_time ASC`;
+    let sql =  `SELECT c.category, p.product_name, t.payment_to_seller, p.due_date FROM product p
+    JOIN category c ON p.product_category=c.id
+    JOIN bid b ON p.product_id = b.product_id
+    JOIN bid_result br ON b.bid_id = br.bid_id
+    JOIN transaction t ON br.id = t.bid_result_id
+     WHERE status = 'Confirm' AND bid_status = 2 AND p.seller_id=${sellerId} ORDER BY submission_time ASC LIMIT ${limit} OFFSET ${offset}`;
+    let sql2 = `SELECT c.category, p.product_name, 0 as payment_to_seller, p.due_date FROM product p JOIN category c ON p.product_category=c.id WHERE status = 'Confirm' AND bid_status = 2 AND seller_id=${sellerId} ORDER BY submission_time ASC LIMIT ${limit} OFFSET ${offset}
+    `;
+    
+    try {
+      let response = await dba(sql);
+      let count = await dba(countSql);
+      if (response.length === 0) {
+        let result = await dba(sql2);
+        console.log(result);
+        res.status(200).send({
+          data: result,
+          count: count[0].numRows
+        })
+      } else {
+        res.status(200).send({
+          data: response,
+          count: count[0].numRows
+        });
+      }
+      // console.log(response)
+    } catch(err) {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    };
+  },
   fetchProductById: async (req, res) => {
     let {productId} = req.params;
     let sql = `
@@ -27,6 +95,7 @@ module.exports = {
         p.starting_price,
         p.product_desc,
         p.due_date,
+        p.image_path,
         c.category AS category,
         i.invoice_pdf AS invLink,
         i.invoice_number AS invNum
