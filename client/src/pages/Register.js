@@ -24,6 +24,7 @@ const RegisterPage = () => {
 
     const dispatch = useDispatch();
 
+    const role = useSelector(({ auth }) => auth.role_id);
     const loading = useSelector(({ auth }) => auth.loading);
     const username = useSelector(({ auth }) => auth.username);
 
@@ -65,7 +66,9 @@ const RegisterPage = () => {
             <Redirect to='/'/>
         );
     };
-
+    if (role === 1) {
+        return <Redirect to='/internal' />
+    }
     return (
         <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 550 }}>

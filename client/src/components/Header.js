@@ -138,7 +138,7 @@ const Header = () => {
             <Link to='/' style={{ textDecoration: 'none', color: '#8C8E94' }}>Home</Link>
           </Nav.Link>
           <Nav.Link className="ml-3 mr-3">
-            <Link to='/' style={{ textDecoration: 'none', color: '#8C8E94' }}>Profile</Link>
+            <Link to='/edit-profile' style={{ textDecoration: 'none', color: '#8C8E94' }}>Profile</Link>
           </Nav.Link>
           <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#">Action</NavDropdown.Item>
@@ -165,7 +165,9 @@ const Header = () => {
           </span>
         </div>
       </div>
-      <span className='mr-3 input-group-text' style={{ height: '2.4rem' }}><FaShoppingCart /></span>
+      <Link to='/cart'>
+        <span className='mr-3 input-group-text' style={{ height: '2.4rem' }}><FaShoppingCart /></span>
+      </Link>
       <Link to={`/wallet?username=${uName}`}>
         <span className='mr-5 input-group-text' style={{ height: '2.4rem' }}><FaWallet /></span>
       </Link>

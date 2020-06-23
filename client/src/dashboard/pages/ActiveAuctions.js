@@ -29,9 +29,6 @@ import Loader from 'react-loader-spinner';
 import Moment from "moment";
 import DateCountdown from "react-date-countdown-timer";
 
-// sample image
-import SampleImage from '../../asset/SSB-1.jpeg';
-
 const ActiveAuctions = () => {
 
   const [category, setCategory] = useState([]);
@@ -84,7 +81,7 @@ const ActiveAuctions = () => {
       dispatch(FetchDataCloseCtg(AuctPerPage, offset, categ));
     }
   }, [dispatch, render]);
-
+  
   useEffect(() => {
     if (gCategory) {
       setCategory(gCategory); 
@@ -208,7 +205,7 @@ const ActiveAuctions = () => {
               width={175}
               height={180}
               alt={val.product_name}
-              src={SampleImage}
+              src={API_URL + val.image_path}
             />
             <div style={{ width: "175px" }}>
               <p>{`${val.product_desc.substring(0, MAX_LENGTH)}...`}</p>

@@ -170,11 +170,11 @@ const Report = () => {
               <Segment>
                 <Row>
                   <Col sm={6} className="font-weight-bold">Total Transaction</Col>
-                  <Col sm={6}>: Rp {gTotalTrx ? gTotalTrx.toLocaleString() : null}</Col>
+                  <Col sm={6}>: Rp {gTotalTrx ? gTotalTrx.toLocaleString() : 0}</Col>
                 </Row>
                 <Row>
                   <Col sm={6} className="font-weight-bold">Total Revenue</Col>
-                  <Col sm={6}>: Rp {revenue ? revenue.toLocaleString() : null}</Col>
+                  <Col sm={6}>: Rp {revenue ? revenue.toLocaleString() : 0}</Col>
                 </Row>
                 <Row>
                   <Col sm={6} className="font-weight-bold">Product Sell</Col>
@@ -182,20 +182,20 @@ const Report = () => {
                 </Row>
                 <Segment.Group>
                   <Segment>
-                    <p className="font-weight-bold">Top 3 Most Bidders</p>
+                    <p className="font-weight-bold text-center">Top 3 Bidders</p>
                   </Segment>
                   <Segment.Group>
                     <Segment>
                       <Row>
-                        <Col sm={6} style={{ color: 'gold' }}><Icon name='chess king' size='big' /><span className="font-weight-bold"> 1st</span></Col>
+                        <Col sm={6} style={{ color: 'gold' }}><Icon name='trophy' size='big' /><span className="font-weight-bold"> 1st</span></Col>
                         <Col sm={6}>: {gMostBidder[0] ? gMostBidder[0] : '-'}</Col>
                       </Row>
-                      <Row>
-                        <Col sm={6} style={{ color: 'silver' }}><Icon name='chess queen' size='big' /><span className="font-weight-bold"> 2nd</span></Col>
+                      <Row className="mt-2">
+                        <Col sm={6} style={{ color: 'silver' }}><Icon name='trophy' size='big' /><span className="font-weight-bold"> 2nd</span></Col>
                         <Col sm={6}>: {gMostBidder[1] ? gMostBidder[1] : '-'}</Col>
                       </Row>
-                      <Row>
-                        <Col sm={6} style={{ color: 'bronze' }}><Icon name='chess rook' size='big' /><span className="font-weight-bold"> 3rd</span></Col>
+                      <Row className="mt-2">
+                        <Col sm={6} style={{ color: 'bronze' }}><Icon name='trophy' size='big' /><span className="font-weight-bold"> 3rd</span></Col>
                         <Col sm={6}>: {gMostBidder[2] ? gMostBidder[2] : '-'}</Col>
                       </Row>
                     </Segment>

@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { FetchDataByProductId } from '../redux/action';
+import { FetchDataByProductId, setModal, checkStatus, Logout } from '../redux/action';
 
 // moment.js
 import Moment from 'moment';
 
 // API
 import { API_URL } from '../support/API_URL';
+
+import LoginModal from '../components/LoginModal';
 
 // style
 import { Button } from 'semantic-ui-react';
@@ -26,9 +28,25 @@ const ProductDetail = props => {
     dispatch(FetchDataByProductId(productId));
   }, [dispatch, productId]);
   
+  const status = useSelector(({ status }) => status.status);
+  const modalShow = useSelector(({ modal }) => modal.modalShow);
+  const logged = useSelector(({ auth }) => auth.logged);
+  const id = useSelector(({ auth }) => auth.user_id);
+  const role = useSelector(({ auth }) => auth.role_id);
   const data = useSelector(({ product }) => product.productById);
   const {product_name, product_id, starting_price, seller, product_desc, category, due_date, image_path} = data;
+
+  useEffect(() => {
+    dispatch(checkStatus(id));
+  }, [id]);
+
+  useEffect(() => {
+      if (status === 'Banned') dispatch(Logout());
+  }, [status]);
   
+  if (role === 1) {
+    return <Redirect to='/internal' />
+  }
   return (
     <div className="container mt-4 p-3">
       <div className="row">
@@ -53,7 +71,7 @@ const ProductDetail = props => {
                 </div>
                 <div className="col-5 d-flex align-items-center">
                   <Link to={`/bidding-page?product_id=${product_id}`}>
-                    <Button className="ui teal button" size="lg" >Bid Now</Button>
+                    <Button className="ui teal button" size="lg" onClick={!logged ? () => dispatch(setModal()) : null} >Bid Now</Button>
                   </Link>
                 </div>
               </div>
@@ -79,6 +97,10 @@ const ProductDetail = props => {
               <Col className="font-weight-bold" sm={4}>Due Date</Col>
               <Col sm={8}>{Moment(due_date).format("Do MMMM YYYY, HH:mm:ss") + " WIB"}</Col>
             </Row><br />
+            <LoginModal 
+              show={modalShow}
+              onHide={() => dispatch(setModal())}
+            />
           </Container>
         </div>
       </div>

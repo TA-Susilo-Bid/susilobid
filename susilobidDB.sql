@@ -34,7 +34,7 @@ CREATE TABLE `bid` (
   KEY `fk_bidder_id_idx` (`bidder_id`),
   CONSTRAINT `fk_bidder_id` FOREIGN KEY (`bidder_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `bid` (
 
 LOCK TABLES `bid` WRITE;
 /*!40000 ALTER TABLE `bid` DISABLE KEYS */;
+INSERT INTO `bid` VALUES (107,16,33,6000000,1,'2020-06-24 03:04:11'),(108,16,44,7000000,1,'2020-06-24 03:06:03'),(109,16,33,8000000,2,'2020-06-24 03:06:31'),(110,16,2,9000000,1,'2020-06-24 03:10:26');
 /*!40000 ALTER TABLE `bid` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +218,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (16,34,1,'Stik Golf','Stik Golf Merk PRGR Warna Cokelat Hitam Type PRGR M-40 kondisi baru',5000000,'2020-06-24 01:13:26','2020-07-25 23:00:00','Confirm','-','/product/PRD1592936006259.jpg',1),(17,34,3,'Mobil Toyota','1 Unit Roda 4 Merk Toyota Standar/Pick-Up,KB 8320 P,Th.2005,NoKa:MHF31KF6050044483,Nosin:7K-0809963,hanya BPKB.Rusak',24929000,'2020-06-24 01:58:33','2020-08-28 09:00:00','Pending','-','/product/PRD1592938713805.jpg',NULL),(18,34,2,'Tanah','Sebidang tanah seluas 456 m2 berikut bangunan toko diatasnya, di Desa Seuneubok Benteng Kecamatan Banda Alam',400000000,'2020-06-24 02:11:06','2020-06-24 02:14:00','Confirm','-','/product/PRD1592939466225.png',2);
+INSERT INTO `product` VALUES (16,34,1,'Gitar Elektrik','Gitar Elektrik PRGR M-40 kondisi baru',5000000,'2020-06-24 01:13:26','2020-07-25 23:00:00','Confirm','-','/product/PRD1592936006259.jpg',1),(17,34,3,'Mobil Toyota','1 Unit Roda 4 Merk Toyota Standar/Pick-Up,KB 8320 P,Th.2005,NoKa:MHF31KF6050044483,Nosin:7K-0809963,hanya BPKB.Rusak',24929000,'2020-06-24 01:58:33','2020-08-28 09:00:00','Pending','-','/product/PRD1592938713805.jpg',NULL),(18,34,2,'Tanah','Sebidang tanah seluas 456 m2 berikut bangunan toko diatasnya, di Desa Seuneubok Benteng Kecamatan Banda Alam',400000000,'2020-06-24 02:11:06','2020-06-24 02:14:00','Confirm','-','/product/PRD1592939466225.png',2);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +269,7 @@ CREATE TABLE `transaction` (
   KEY `fk_seller_idx` (`seller_id`),
   CONSTRAINT `fk_buyer` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `fk_seller` FOREIGN KEY (`seller_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,6 +278,7 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+INSERT INTO `transaction` VALUES (64,2,NULL,'2020-06-24 03:09:22',NULL,20000000,NULL,'/slip/PYM1592942962350.jpg','Confirm',NULL);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +316,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,1,'admin','arioamri@gmail.com','admin123',NULL,NULL,0,'Active'),(2,2,1,'arioamri','arioamri@yahoo.co.id','afb035d340469289c426ac6cf9bd9ee86e4df2e541a7a1073c12cbc6a1ba8897','Cipondoh',5541409,6000000,'Active'),(3,2,0,'buyer1','buyr@yahoo.com','tes','tes',45445,0,'Banned'),(4,2,0,'buyer2','buyer2@gmail.com','tes','asasa',454454,0,'Banned'),(32,3,0,'seller1','seller@hotmail.com','tes','ffggf',4334,217562000,'Active'),(33,2,0,'buyer3','buyer3@yahoo.com','tes','ddggg',34343,30000000,'Active'),(34,3,0,'seller2','seller2i@yahoo.co.id','tes','ssdrerer',343567676,0,'Active'),(35,2,0,'buyer4','buyer4@hotmail.com','tes','vbfdgdgf',983232,20000,'Active'),(36,2,0,'buyer5','buyer5@yahoo.com','tes','dfdfdd',434554,0,'Banned'),(37,3,0,'seller3','seller3@yahoo.com','tes','fgfgfg',323,0,'Active'),(38,3,0,'seller4','seller4@gmail.com','tes','dfdfw',466565,0,'Banned'),(39,2,0,'buyer6','buyer6@hotmail.com','tes','ffdssdss',6657567,0,'Active'),(40,2,0,'buyer7','buyer7@gmail.com','tes','gffgffg',656656,0,'Active'),(41,3,0,'seller5','seller5@yahoo.com','tes','fdfdfd',671234,0,'Banned'),(42,3,0,'seller6','seller6@gmail.com','tes','dfdf',340987,0,'Active'),(43,2,0,'buyer8','buyr8@hotmail.com','tes','fdfdd',67676,0,'Banned'),(44,2,0,'buyer9','buyer9@gmail.com','tes','aaqas',7787,9500000,'Active'),(45,2,0,'buyer10','buyer10@yahoo.com','tes','dfdfddf',686868,259600000,'Active'),(46,3,0,'seller7','seller7@yahoo.co.id','tes','fggd',721233,0,'Active'),(47,2,0,'buyer11','buyer11@gmail.com','tes','dffdfd',56565,0,'Banned'),(48,2,0,'buyer12','buyer12@gmail.com','tes','aqko',126788,0,'Active'),(49,3,0,'seller8','seller8@gmail.com','tes','dfsfsaf',1211,0,'Active'),(50,3,0,'seller9','seller9@hotmail.com','tes','dsss',1221,0,'Active'),(51,2,0,'buyer13','buyer13@gmail.com','tes','dfdfdf',34343,0,'Active'),(52,2,0,'buyer14','buyer14@yahoo.com','tes','fgfgf',524242,0,'Active'),(53,2,0,'buyer15','buyer15@gmail.com','tes','dfsfsfsf',7676767,0,'Active'),(54,3,0,'seller10','seller10@yahoo.com','tes','ahjju',124222,0,'Active'),(55,2,0,'buyer16','buyer16@gmail.com','tes','dfdfdd',11332,0,'Active'),(56,2,0,'buyer17','buyer17@gmail.com','tes','fgdgdd',2323232,0,'Banned'),(57,3,0,'seller11','seller11@yahoo.com','tes','dfdfd',454545,0,'Active'),(58,3,0,'seller12','seller12@yahoo.com','tes','dffdfd',345353,0,'Banned'),(59,2,0,'buyer18','buyer18@gmail.com','tes','dfggdg',454544,0,'Active');
+INSERT INTO `users` VALUES (1,1,1,'admin','arioamri@gmail.com','admin123',NULL,NULL,0,'Active'),(2,2,1,'arioamri','arioamri@yahoo.co.id','ca2c8a0b0baccd44a7078af6ef2fe3aa24a2a3e8769031957832149bee3c522c','Banjar Wijaya',55751409,17000000,'Banned'),(3,2,0,'buyer1','buyr@yahoo.com','tes','tes',45445,0,'Banned'),(4,2,0,'buyer2','buyer2@gmail.com','tes','asasa',454454,0,'Banned'),(32,3,0,'seller1','seller@hotmail.com','tes','ffggf',4334,217562000,'Active'),(33,2,0,'buyer3','buyer3@yahoo.com','tes','ddggg',34343,22000000,'Active'),(34,3,0,'seller2','seller2i@yahoo.co.id','tes','ssdrerer',343567676,0,'Active'),(35,2,0,'buyer4','buyer4@hotmail.com','tes','vbfdgdgf',983232,20000,'Active'),(36,2,0,'buyer5','buyer5@yahoo.com','tes','dfdfdd',434554,0,'Banned'),(37,3,0,'seller3','seller3@yahoo.com','tes','fgfgfg',323,0,'Active'),(38,3,0,'seller4','seller4@gmail.com','tes','dfdfw',466565,0,'Banned'),(39,2,0,'buyer6','buyer6@hotmail.com','tes','ffdssdss',6657567,0,'Active'),(40,2,0,'buyer7','buyer7@gmail.com','tes','gffgffg',656656,0,'Active'),(41,3,0,'seller5','seller5@yahoo.com','tes','fdfdfd',671234,0,'Banned'),(42,3,0,'seller6','seller6@gmail.com','tes','dfdf',340987,0,'Active'),(43,2,0,'buyer8','buyr8@hotmail.com','tes','fdfdd',67676,0,'Banned'),(44,2,0,'buyer9','buyer9@gmail.com','tes','aaqas',7787,2500000,'Active'),(45,2,0,'buyer10','buyer10@yahoo.com','tes','dfdfddf',686868,259600000,'Active'),(46,3,0,'seller7','seller7@yahoo.co.id','tes','fggd',721233,0,'Active'),(47,2,0,'buyer11','buyer11@gmail.com','tes','dffdfd',56565,0,'Banned'),(48,2,0,'buyer12','buyer12@gmail.com','tes','aqko',126788,0,'Active'),(49,3,0,'seller8','seller8@gmail.com','tes','dfsfsaf',1211,0,'Active'),(50,3,0,'seller9','seller9@hotmail.com','tes','dsss',1221,0,'Active'),(51,2,0,'buyer13','buyer13@gmail.com','tes','dfdfdf',34343,0,'Active'),(52,2,0,'buyer14','buyer14@yahoo.com','tes','fgfgf',524242,0,'Active'),(53,2,0,'buyer15','buyer15@gmail.com','tes','dfsfsfsf',7676767,0,'Active'),(54,3,0,'seller10','seller10@yahoo.com','tes','ahjju',124222,0,'Active'),(55,2,0,'buyer16','buyer16@gmail.com','tes','dfdfdd',11332,0,'Active'),(56,2,0,'buyer17','buyer17@gmail.com','tes','fgdgdd',2323232,0,'Banned'),(57,3,0,'seller11','seller11@yahoo.com','tes','dfdfd',454545,0,'Active'),(58,3,0,'seller12','seller12@yahoo.com','tes','dffdfd',345353,0,'Banned'),(59,2,0,'buyer18','buyer18@gmail.com','tes','dfggdg',454544,0,'Active');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-24  2:41:43
+-- Dump completed on 2020-06-24  5:47:55

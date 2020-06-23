@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { AddTopup, WalletAction } from '../redux/action';
+import { AddTopup, WalletAction, checkStatus, Logout } from '../redux/action';
 
 // API
 import Axios from 'axios';
@@ -20,9 +21,13 @@ import Swal from 'sweetalert2';
 const WalletPage = () => {
   
   const dispatch = useDispatch();
+
+  const role = useSelector(({ auth }) => auth.role_id);
   const gWallet = useSelector(state => state.wallet.wallet);
   const userId = useSelector(state => state.auth.user_id);
   const loading = useSelector(state => state.topup.loading);
+  const logged = useSelector(({ auth }) => auth.logged);
+  const status = useSelector(({ status }) => status.status);
 
   const [form, setForm] = useState('');
   const [image, setImage] = useState({
@@ -32,6 +37,14 @@ const WalletPage = () => {
   const [invalidForm, setInvalidForm] = useState(false);
   const [wallet, setWallet] = useState(gWallet);
   const [message, setMessage] = useState([]);
+
+  useEffect(() => {
+    dispatch(checkStatus(userId));
+  }, [userId]);
+
+  useEffect(() => {
+    if (status === 'Banned') dispatch(Logout());
+  }, [status]);
   
   useEffect(() => {
     if (userId) dispatch(WalletAction(userId));
@@ -119,6 +132,12 @@ const WalletPage = () => {
     return <p style={{ color: '#009C95' }}>Empty</p>
   };
 
+  if (role === 1) {
+    return <Redirect to='/internal' />
+  }
+  if (!logged) {
+    return <Redirect to='/' /> 
+  }
   return ( 
     <div className="container mt-5 p-3" style={{ width: "45%", borderRadius: 8, border: "1px solid #009C95", backgroundColor: "#009C95" }}>
       <p className="h2 text-center" style={{ color: "#fff" }}>Your Wallet</p>

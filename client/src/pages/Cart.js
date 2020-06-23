@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCart } from '../redux/action';
+import { getCart, checkStatus, Logout } from '../redux/action';
+import { Redirect } from 'react-router-dom';
 
 const Cart = () => {
 
     const dispatch = useDispatch();
 
+    const role = useSelector(({ auth }) => auth.role_id);
     const id = useSelector((state) => state.auth.user_id);
     const cartList = useSelector((state) => state.cart.cartList);
-    console.log(cartList);
+    const logged = useSelector(({ auth }) => auth.logged);
+    const status = useSelector(({ status }) => status.status);
+    
     useEffect(() => {
         dispatch(getCart(id));
     }, [dispatch, id]);
+
+    useEffect(() => {
+        dispatch(checkStatus(id));
+    }, [id]);
+
+    useEffect(() => {
+        if (status === 'Banned') dispatch(Logout());
+    }, [status]);
 
     const renderCartA = () => {
         return cartList.map((val,idx) => {
@@ -26,6 +38,12 @@ const Cart = () => {
         });
     };
 
+    if (role === 1) {
+        return <Redirect to='/internal' />
+    }
+    if (!logged) {
+        return <Redirect to='/' />
+    }
     return (
         <div>
             <div className='d-flex justify-content-between'>

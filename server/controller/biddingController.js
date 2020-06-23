@@ -63,8 +63,8 @@ module.exports = {
     try {
       let count = await dba(countSql);
       let bidCount = await dba(countBid);
-      if (count[0].numRows===1) {
-        console.log(offer)
+      if (count[0].numRows===0) {
+        console.log('masuk if');
         let postSql = `INSERT INTO bid (product_id, bidder_id, offer, count, time) VALUES (${productId}, ${bidder}, ${offer}, ${bidCount[0].countBid +1}, '${time}')`;
         await dba(postSql);
         let response = await dba(sql);
@@ -80,6 +80,7 @@ module.exports = {
           data: response
         });
       } else {
+        console.log('masuk else');
         let postSql = `INSERT INTO bid (product_id, bidder_id, offer, count, time) VALUES (${productId}, ${bidder}, ${offer}, ${bidCount[0].countBid +1}, '${time}')`;
         await dba(postSql);
         let response = await dba(sql);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 // socket io
 import io from "socket.io-client";
@@ -8,8 +8,9 @@ import io from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FetchDataByProductId,
-  GetServerTime,
   WalletAction,
+  checkStatus, 
+  Logout
 } from "../redux/action";
 
 // API
@@ -29,7 +30,7 @@ import {
   Table,
 } from "semantic-ui-react";
 import { Input } from 'reactstrap';
-import Loader from "react-loader-spinner";
+// import Loader from "react-loader-spinner";
 import Swal from "sweetalert2";
 
 // moment.js
@@ -43,11 +44,13 @@ const BiddingPage = (props) => {
 
   const dispatch = useDispatch();
 
-  const gState = useSelector(({ auth, wallet, product, serverTime }) => {
+  const role = useSelector(({ auth }) => auth.role_id);
+  const gState = useSelector(({ auth, wallet, product, serverTime, status }) => {
     return {
       username: auth.username,
       email: auth.email,
       userId: auth.user_id,
+      logged: auth.logged,
       gWallet: wallet.wallet,
       productName: product.productById.product_name,
       startPrice: product.productById.starting_price,
@@ -58,6 +61,7 @@ const BiddingPage = (props) => {
       dueDate: product.productById.due_date,
       serverTime: serverTime.time,
       loadingTime: serverTime.loading,
+      status: status.status
     };
   });
 
@@ -74,6 +78,8 @@ const BiddingPage = (props) => {
     image,
     loadingTime,
     userId,
+    logged,
+    status
   } = gState;
 
   const [input, setInput] = useState('');
@@ -96,6 +102,14 @@ const BiddingPage = (props) => {
   useEffect(() => {
     dispatch(FetchDataByProductId(productId));
   }, [dispatch, productId]);
+
+  useEffect(() => {
+    dispatch(checkStatus(userId));
+  }, [userId]);
+
+  useEffect(() => {
+    if (status === 'Banned') dispatch(Logout());
+  }, [status]);
 
   useEffect(() => {
     Axios.get(`${API_URL}/bidding/get/${productId}/${bidPerPage}/${offset}`)
@@ -269,6 +283,12 @@ const BiddingPage = (props) => {
     });
   };
 
+  if (role === 1) {
+    return <Redirect to='/internal' />
+  } 
+  if (!logged) {
+    return <Redirect to='/' />
+  }
   return (
     <div>
       <Container style={{ padding: "2em 0em" }}>

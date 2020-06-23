@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Input, FormGroup, Form, Label } from 'reactstrap';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfile, editProfile } from '../redux/action';
+import { getProfile, editProfile, checkStatus, Logout } from '../redux/action';
 
 const EditProfile = () => {
     const dispatch = useDispatch();
@@ -11,8 +12,19 @@ const EditProfile = () => {
         dispatch(getProfile());
     }, [dispatch]);
 
+    const logged = useSelector(({ auth }) => auth.logged);
+    const role = useSelector(({ auth }) => auth.role_id);
     const id = useSelector((state) => state.auth.user_id);
+    const status = useSelector(({ status }) => status.status);
     const loading = useSelector((state) => state.profile.loading);
+
+    useEffect(() => {
+        dispatch(checkStatus(id));
+    }, [id]);
+
+    useEffect(() => {
+        if (status === 'Banned') dispatch(Logout());
+    }, [status]);
 
     const [formInput, setFormInput] = useState({
         address: '',
@@ -34,6 +46,12 @@ const EditProfile = () => {
         }
     };
 
+    if (role === 1) {
+        return <Redirect to='/internal' />
+    }
+    if (!logged) {
+        return <Redirect to='/' />
+    }
     return (
         <React.Fragment>
             <h1 style={styles.header}>
