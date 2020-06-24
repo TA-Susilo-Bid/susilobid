@@ -238,28 +238,24 @@ const BiddingPage = (props) => {
     if (!input) {
       Swal.fire("Please input your price");
     } else {
-      if (wallet < input) {
-        Swal.fire("Failed", "You don't have enough wallet");
+      if (
+        input < prevBid + prevBid * 0.05 ||
+        input < initPrice + initPrice * 0.05
+      ) {
+        Swal.fire(
+          "Failed",
+          "please make sure that price you submit is at least 5% more than the initial price / last bidding price"
+        );
       } else {
-        if (
-          input < prevBid + prevBid * 0.05 ||
-          input < initPrice + initPrice * 0.05
-        ) {
-          Swal.fire(
-            "Failed",
-            "please make sure that price you submit is at least 5% more than the initial price / last bidding price"
-          );
-        } else {
-          Axios.post(
-            `${API_URL}/bidding/post/${productId}/${userId}/${input}/${bidPerPage}/${offset}`
-          )
-            .then((res) => {
-              Swal.fire("Success", res.data.status);
-            })
-            .catch((err) => {
-              Swal.fire(err.name, err.message);
-            });
-        }
+        Axios.post(
+          `${API_URL}/bidding/post/${productId}/${userId}/${input}/${bidPerPage}/${offset}`
+        )
+          .then((res) => {
+            Swal.fire("Success", res.data.status);
+          })
+          .catch((err) => {
+            Swal.fire(err.name, err.message);
+          });
       }
     }
     setInput('');
